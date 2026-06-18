@@ -9,6 +9,8 @@ const nextConfig = {
       bodySizeLimit: '5mb',
     },
   },
+  // ⬇️ هذه الخاصية الجديدة تمنع إنشاء ملفات cache كبيرة
+  cacheMaxMemorySize: 0,
   async headers() {
     return [
       {
