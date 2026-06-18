@@ -13,28 +13,68 @@ model User {
   name          String?
   email         String    @unique
   password      String?
-  role          Role      @default(CLIENT)
+  role          String    @default("CLIENT")   // ADMIN, CLIENT, WORKER
   usdtWallet    String?
   momoNumber    String?
   cashNumber    String?
   available     Float     @default(0)
   pending       Float     @default(0)
-  tasks         Task[]
+  tasks         Task[]    // المهام التي نشرها (عميل)
   submissions   TaskSubmission[]
   withdrawals   Withdrawal[]
+  acceptedTasks Task[]    @relation("AcceptedTasks") // المهام المقبولة (عامل)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-}
-
-enum Role {
-  ADMIN
-  CLIENT
-  WORKER
 }
 
 model Task {
   id               String   @id @default(cuid())
   title            String
+  description      String
+  category         String   @default("CUSTOM")   // SOCIAL, MAPS, CUSTOM
+  reward           Float
+  clientId         String
+  client           User     @relation(fields: [clientId], references: [id])
+  proofType        String   @default("TEXT")     // TEXT, IMAGE
+  proofInstruction String?
+  status           String   @default("OPEN")     // OPEN, IN_PROGRESS, PENDING_REVIEW, COMPLETED, EXPIRED
+  acceptedWorkerId String?
+  acceptedWorker   User?    @relation("AcceptedTasks", fields: [acceptedWorkerId], references: [id])
+  submissions      TaskSubmission[]
+  createdAt        DateTime @default(now())
+  expiresAt        DateTime?
+}
+
+model TaskSubmission {
+  id          String   @id @default(cuid())
+  taskId      String
+  task        Task     @relation(fields: [taskId], references: [id])
+  workerId    String
+  worker      User     @relation(fields: [workerId], references: [id])
+  proof       String   // نص أو رابط صورة
+  status      String   @default("PENDING")   // PENDING, APPROVED, REJECTED
+  reviewedAt  DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model Withdrawal {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float
+  currency    String   // USDT, TRX, SDG_CASH, SSP_MOMO
+  address     String
+  status      String   @default("PENDING")   // PENDING, PROCESSING, COMPLETED, FAILED
+  fee         Float    @default(0)
+  createdAt   DateTime @default(now())
+  processedAt DateTime?
+}
+
+model Setting {
+  id          String   @id @default("single")
+  rates       String   // سيتم تخزين JSON كـ String (مثال: '{"usdt":580,"trx":50,"sdgCash":1,"sspMomo":0.8}')
+  updatedAt   DateTime @updatedAt
+}  title            String
   description      String
   category         Category @default(CUSTOM)
   reward           Float
