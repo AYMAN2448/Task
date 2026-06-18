@@ -4,12 +4,10 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "./db"
 import bcrypt from "bcryptjs"
 
-const { handlers, signIn, signOut, auth } = NextAuth({
+export const { auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-  },
+  pages: { signIn: "/login" },
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -19,16 +17,12 @@ const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
-
         const user = await prisma.user.findUnique({
           where: { email: credentials.email }
         })
-
         if (!user || !user.password) return null
-
         const isValid = await bcrypt.compare(credentials.password, user.password)
         if (!isValid) return null
-
         return {
           id: user.id,
           email: user.email,
@@ -40,10 +34,7 @@ const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.role = user.role
-        token.id = user.id
-      }
+      if (user) { token.role = user.role; token.id = user.id }
       return token
     },
     async session({ session, token }) {
@@ -55,9 +46,6 @@ const { handlers, signIn, signOut, auth } = NextAuth({
     }
   }
 })
-
-// تصدير واضح
-export { handlers, signIn, signOut, auth }
 
 declare module "next-auth" {
   interface Session {
