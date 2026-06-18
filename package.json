@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && npx rimraf .next/cache && next build && npx @cloudflare/next-on-pages",
+    "build": "prisma generate && npx rimraf .next/cache && next build",
     "clean": "npx rimraf .next/cache",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "prisma db push"
+    "db:push": "prisma db push",
+    "deploy:pages": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
