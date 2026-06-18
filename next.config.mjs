@@ -1,37 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  
   images: {
-    unoptimized: true,
+    unoptimized: true, // ضروري لـ Cloudflare Pages
   },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '5mb',
-    },
+  
+  // إعدادات webpack - تعطيل الـ Cache في الإنتاج
+  webpack: (config, { isServer }) => {
+    // تعطيل التخزين المؤقت (Cache) في بيئة الإنتاج فقط
+    if (process.env.NODE_ENV === 'production') {
+      config.cache = false;
+    }
+    return config;
   },
-  // ⬇️ هذه الخاصية الجديدة تمنع إنشاء ملفات cache كبيرة
-  cacheMaxMemorySize: 0,
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-        ],
-      },
-    ];
-  },
+
+  // إزالة أي إعدادات تجريبية غير ضرورية (لتجنب التعارض)
+  // يمكنك إضافة experimental إذا كنت بحاجة فعلاً
 };
 
 export default nextConfig;
