@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && npx rimraf .next/cache && next build",
+    "build": "prisma generate && npx rimraf .next/cache && next build && npx @cloudflare/next-on-pages",
     "clean": "npx rimraf .next/cache",
     "start": "next start",
     "lint": "next lint",
@@ -27,7 +27,7 @@
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
     "lucide-react": "^0.309.0",
-    "next": "14.3.0",
+    "next": "14.1.0",
     "next-auth": "^4.24.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -52,8 +52,5 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "wrangler": "^3.28.1"
-  },
-  "overrides": {
-    "next": "14.3.0"
   }
 }
