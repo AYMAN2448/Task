@@ -1,0 +1,6 @@
+# مثال ملف wrangler لمزامنة النشر على Cloudflare Pages باستخدام wrangler pages
+name = "task2"               # اسم المشروع في Pages
+type = "static"              # موقع ثابت
+# account_id = "..."         # ضع account_id هنا إن أردت النشر الآلي عبر wrangler
+# api_token = "..."          # لا تضعها في الريبو العام
+# project_settings يمكن تركه فارغاً — خطوات النشر في README

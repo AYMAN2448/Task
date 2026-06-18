@@ -1,0 +1,40 @@
+:root{
+  --bg:#f7f8fb; --card:#fff; --accent:#0b72ff; --muted:#666;
+  --radius:10px; font-family: "Segoe UI", Tahoma, sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#111;line-height:1.5}
+.container{max-width:980px;margin:0 auto;padding:20px}
+.site-header{background:linear-gradient(90deg,#fff 0,#f3f6ff);box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{margin:12px 0;font-size:1.4rem;color:var(--accent)}
+nav a{margin-left:14px;color:var(--accent);text-decoration:none}
+.hero{padding:40px 20px;text-align:center}
+.hero h2{margin:0;font-size:2rem}
+.hero p{color:var(--muted)}
+.hero-cta button{margin-top:12px;padding:10px 16px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+
+.features{display:flex;align-items:flex-start;gap:20px}
+.features ul{list-style:none;padding:0;margin:0}
+.features li{background:var(--card);padding:12px;border-radius:8px;margin-bottom:8px;box-shadow:0 2px 8px rgba(10,10,10,.03)}
+
+.tasks-section{margin-top:20px}
+.tasks-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.task-card{background:var(--card);padding:12px;border-radius:var(--radius);box-shadow:0 4px 18px rgba(10,10,10,.05)}
+.task-card h4{margin:0 0 6px 0}
+.task-meta{font-size:.9rem;color:var(--muted);margin-bottom:8px}
+.task-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+.btn.edit{background:#ffd; color:#333}
+.btn.delete{background:#ffecec;color:#900}
+.btn.share{background:linear-gradient(90deg,#06b6d4,#0b72ff);color:#fff}
+
+.site-footer{Padding:14px 0;text-align:center;color:var(--muted);margin-top:30px}
+
+.task-dialog form{display:flex;flex-direction:column;gap:8px;padding:12px}
+.task-dialog input, .task-dialog textarea, .task-dialog select{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
+.muted{color:var(--muted);text-align:center;padding:12px}
+@media (max-width:600px){
+  .header-inner{flex-direction:column;align-items:flex-start}
+  nav{margin-top:8px}
+}
