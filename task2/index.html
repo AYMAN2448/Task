@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Task2 — مهام صغيرة للسوشيال ميديا</title>
+  <meta name="description" content="منصة للمهام الصغيرة المتعلقة بوسائل التواصل الاجتماعي — نشر، تصميم، توجيه، ترجمة" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">Task2</h1>
+      <nav>
+        <a href="#features">الخدمات</a>
+        <a href="#tasks">المهام</a>
+        <a href="#add" id="open-add">أضف مهمة</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>مهمتك الأٌسرع على السوشيال</h2>
+        <p>أنشئ، أدر، وشارك مهام صغيرة متعلقة بالمحتوى، التصميم، التعليقات وغيرها — بسرعة وسهولة.</p>
+        <div class="hero-cta">
+          <button id="open-add-hero">أنشئ مهمة جديدة</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="container features">
+      <h3>ما نعرضه</h3>
+      <ul>
+        <li>نشر محتوى قصير</li>
+        <li>تصميم صور ومنشورات</li>
+        <li>كتابة وصف وتعليقات</li>
+        <li>ترجمة ونشر متعدد اللغات</li>
+      </ul>
+    </section>
+
+    <section id="tasks" class="container tasks-section">
+      <h3>قائمة المهام</h3>
+      <div id="tasks-list" class="tasks-list"></div>
+      <p id="no-tasks" class="muted">لا توجد مهام. أضف أول مهمة الآن.</p>
+    </section>
+
+    <section id="about" class="container about">
+      <h3>عن Task2</h3>
+      <p>منصة خفيفة تتيح إنشاء وإدارة مهام صغيرة مخصصة لمنشئي المحتوى وفرق السوشيال ميديا. يمكن نشر المهمة ومشاركتها عبر الروابط أو الحفظ محلياً.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Task2 — موقع مخصص للمهام الصغيرة على السوشيال ميديا</p>
+    </div>
+  </footer>
+
+  <!-- Add / Edit Modal -->
+  <dialog id="task-dialog" class="task-dialog">
+    <form method="dialog" id="task-form">
+      <h3 id="dialog-title">أضف مهمة</h3>
+      <label>العنوان
+        <input type="text" id="task-title" required />
+      </label>
+      <label>الوصف
+        <textarea id="task-desc" rows="4"></textarea>
+      </label>
+      <label>النوع
+        <select id="task-type">
+          <option>نشر</option>
+          <option>تصميم</option>
+          <option>تعليق</option>
+          <option>ترجمة</option>
+        </select>
+      </label>
+      <label>ملاحظة (اختياري)
+        <input type="text" id="task-note" />
+      </label>
+      <menu>
+        <button id="save-task" type="submit">حفظ</button>
+        <button id="cancel-task" type="button">إلغاء</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(()=>{});
+    }
+  </script>
+</body>
+</html>
