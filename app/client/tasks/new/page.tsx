@@ -1,5 +1,6 @@
 "use client"
 
+export const runtime = 'nodejs'
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { prisma } from "@/lib/db"
