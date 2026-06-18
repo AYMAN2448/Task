@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "./db"
 import bcrypt from "bcryptjs"
+import { JWT } from "next-auth/jwt"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -48,8 +49,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role
-        session.user.id = token.id
+        session.user.role = token.role as string   // ⬅️ تحويل النوع
+        session.user.id = token.id as string       // ⬅️ تحويل النوع
       }
       return session
     }
