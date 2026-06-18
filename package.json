@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && rm -rf .next/cache && next build",
+    "build": "prisma generate && npx rimraf .next/cache && next build",
+    "clean": "npx rimraf .next/cache",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push"
@@ -47,8 +48,12 @@
     "eslint-config-next": "14.3.0",
     "postcss": "^8.4.35",
     "prisma": "^5.10.0",
+    "rimraf": "^5.0.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "wrangler": "^3.28.1"
+  },
+  "overrides": {
+    "next": "14.3.0"
   }
 }
