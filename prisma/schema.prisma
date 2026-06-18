@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String?
+  role          Role      @default(CLIENT)
+  usdtWallet    String?
+  momoNumber    String?
+  cashNumber    String?
+  available     Float     @default(0)
+  pending       Float     @default(0)
+  tasks         Task[]
+  submissions   TaskSubmission[]
+  withdrawals   Withdrawal[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+  WORKER
+}
+
+model Task {
+  id               String   @id @default(cuid())
+  title            String
+  description      String
+  category         Category @default(CUSTOM)
+  reward           Float
+  clientId         String
+  client           User     @relation(fields: [clientId], references: [id])
+  proofType        ProofType @default(TEXT)
+  proofInstruction String?
+  status           TaskStatus @default(OPEN)
+  acceptedWorkerId String?
+  acceptedWorker   User?    @relation("AcceptedTasks", fields: [acceptedWorkerId], references: [id])
+  submissions      TaskSubmission[]
+  createdAt        DateTime @default(now())
+  expiresAt        DateTime?
+}
+
+enum Category {
+  SOCIAL
+  MAPS
+  CUSTOM
+}
+
+enum ProofType {
+  TEXT
+  IMAGE
+}
+
+enum TaskStatus {
+  OPEN
+  IN_PROGRESS
+  PENDING_REVIEW
+  COMPLETED
+  EXPIRED
+}
+
+model TaskSubmission {
+  id          String   @id @default(cuid())
+  taskId      String
+  task        Task     @relation(fields: [taskId], references: [id])
+  workerId    String
+  worker      User     @relation(fields: [workerId], references: [id])
+  proof       String   // نص أو رابط صورة
+  status      SubmissionStatus @default(PENDING)
+  reviewedAt  DateTime?
+  createdAt   DateTime @default(now())
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Withdrawal {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float
+  currency    Currency
+  address     String
+  status      WithdrawalStatus @default(PENDING)
+  fee         Float    @default(0)
+  createdAt   DateTime @default(now())
+  processedAt DateTime?
+}
+
+enum Currency {
+  USDT
+  TRX
+  SDG_CASH
+  SSP_MOMO
+}
+
+enum WithdrawalStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model Setting {
+  id          String   @id @default("single")
+  rates       Json     // { usdt: 580, trx: 50, sdgCash: 1, sspMomo: 0.8 }
+  updatedAt   DateTime @updatedAt
+}
