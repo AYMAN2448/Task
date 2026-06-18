@@ -6,4 +6,4 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "shadowtasks-db"
-database_id = "your-database-id-here"  # غيّره بعد إنشاء D1
+database_id = "bbc421ed-e260-4774-9683-5c9d5ef30fc1"  # غيّره بعد إنشاء D1
