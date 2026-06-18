@@ -1,3 +1,4 @@
+export const runtime = 'nodejs'
 import { prisma } from "@/lib/db"
 import TaskCard from "@/components/tasks/TaskCard"
 import { auth } from "@/lib/auth"
