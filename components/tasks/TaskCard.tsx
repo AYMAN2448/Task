@@ -6,7 +6,7 @@ interface TaskCardProps {
 }
 
 export default function TaskCard({ task }: TaskCardProps) {
-  const statusColors = {
+  const statusColors: Record<string, string> = {
     OPEN: "bg-green-500/20 text-green-500",
     IN_PROGRESS: "bg-yellow-500/20 text-yellow-500",
     PENDING_REVIEW: "bg-blue-500/20 text-blue-500",
