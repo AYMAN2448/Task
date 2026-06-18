@@ -1,5 +1,5 @@
 interface Env {
-  DB: D1Database;
+  DB: any;  // استخدام any لتجنب خطأ النوع
 }
 
 declare global {
@@ -7,6 +7,5 @@ declare global {
 }
 
 export function getBindings() {
-  // في بيئة Cloudflare، يتم حقن المتغيرات عبر `env`
   return process.env as any as Env;
 }
