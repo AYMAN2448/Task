@@ -1,3 +1,4 @@
+export const runtime = 'nodejs'
 import { prisma } from "@/lib/db"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
