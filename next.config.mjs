@@ -5,7 +5,6 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    // تعطيل ميزات غير مدعومة في بيئة Cloudflare
     webpackBuildWorker: false,
   },
 };
